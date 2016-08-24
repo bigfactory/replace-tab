@@ -8,7 +8,7 @@ var conf = require('../package.json');
 
 program
     .version(conf.version, '-v, --version')
-    .usage('[file]');
+    .usage('[dir]');
     
 program.parse(process.argv);
 
