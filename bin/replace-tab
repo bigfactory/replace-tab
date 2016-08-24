@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var path = require('path');
+var program = require('commander');
+var replaceTab = require('../');
+var conf = require('../package.json');
+
+program
+    .version(conf.version, '-v, --version')
+    .usage('[file]');
+    
+program.parse(process.argv);
+
+var dir = program.args[0];
+
+if(!dir){
+    dir = path.resolve(process.cwd());
+}
+else{
+    dir = path.resolve(dir);
+}
+
+if (!fs.existsSync(dir)) {
+    console.log(dir + ' can not be found!');
+    process.exit(0);
+}
+
+process.on('uncaughtException', function(err) {
+    console.log('uncaughtException: ' + err.message);
+});
+
+
+replaceTab(dir);
+
+
